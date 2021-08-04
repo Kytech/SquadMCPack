@@ -4,7 +4,10 @@
 # Always normalize specific file types
 *.ps1 text=auto
 
-# Force eol for specific file types
+# Force eol for specific files/file types
 *.sh text eol=lf
 *.bat text eol=crlf
 *.cmd text eol=crlf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+.packwizignore text eol=lf
