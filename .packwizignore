@@ -1,8 +1,16 @@
+# Git Files
 .git/**
 .github/**
 .gitattributes
 .gitignore
+
+# Utility folders from CreateTogether
 automation/**
 changelogs/**
 server_files/**
-*.md
+
+# Files from CreateTogether to ignore
+MODLIST.md
+.prettierrc
+InstanceSync.jar
+github-changelog-generator.bat
