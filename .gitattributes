@@ -1,0 +1,10 @@
+# Do not normalize files by default - throws off packwiz
+* -text
+
+# Always normalize specific file types
+*.ps1 text=auto
+
+# Force eol for specific file types
+*.sh text eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
