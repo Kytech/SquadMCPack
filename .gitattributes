@@ -1,10 +1,10 @@
-# Do not normalize files by default - throws off packwiz
-* -text
+# Normalize all text files to use lf eol by default
+* text=auto eol=lf
 
-# Always normalize specific file types
-*.ps1 text=auto
+# Always auto-convert line endings to OS native for specific file types
+*.ps1 text=auto -eol
 
-# Force eol for specific files/file types
+# Force specific eol for specific files/file types
 *.sh text eol=lf
 *.bat text eol=crlf
 *.cmd text eol=crlf
