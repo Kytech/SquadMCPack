@@ -1,19 +1,10 @@
 # Git Files
 .git/**
-.github/**
 .gitattributes
 .gitignore
 
-# Pack Build Files
+# Pack Build Script Files
 build/**
 
-# Utility folders from CreateTogether
-automation/**
-changelogs/**
-server_files/**
-
-# Files from CreateTogether to ignore
-MODLIST.md
-.prettierrc
-InstanceSync.jar
-github-changelog-generator.bat
+# Other files in repo to ignore
+Diffnotes.txt
