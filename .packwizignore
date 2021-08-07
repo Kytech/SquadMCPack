@@ -4,6 +4,9 @@
 .gitattributes
 .gitignore
 
+# Pack Build Files
+build/**
+
 # Utility folders from CreateTogether
 automation/**
 changelogs/**
