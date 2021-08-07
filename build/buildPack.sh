@@ -1,6 +1,9 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd $(dirname "${BASH_SOURCE[0]}"); pwd)"
+
 # Check for dependencies
+
 if ! which dos2unix > /dev/null; then
     >&2 echo "Error: dos2unix not found."
     >&2 echo "Either install the dos2unix utility, or, if on Windows, ensure you are"
@@ -14,26 +17,31 @@ if ! which packwiz > /dev/null; then
     exit 1
 fi
 
-script_dir="$(cd $(dirname "${BASH_SOURCE[0]}"); pwd)"
-
 # Clear download cache
-# rm -rf "$script_dir/dl"
+# rm -rf "$SCRIPT_DIR/dl"
 
-# git clone https://github.com/Kytech/CreateTogether.git "$script_dir/dl/basePack"
+# git clone https://github.com/Kytech/CreateTogether.git "$SCRIPT_DIR/dl/basePack"
+cd "$SCRIPT_DIR/dl/basePack"
 
 # Remove files and directories not used in the modpack
-cd "$script_dir/dl/basePack"
 rm -rf .git/ .github/ automation/ changelogs/ server_files/ .gitattributes .gitignore .prettierrc *.sh *.bat *.jar *.md
 rm -rf packmenu/
 
 # Get list of folders in base modpack
-basePack_dirList=$(find . -maxdepth 1 ! -path . -type d | sed "s|^\./||")
-IFS=$'\n' read -r -a basePack_dirs <<< "$basePack_dirList"
+basePack_dirList="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
+IFS=$'\n' read -d '' -a basePack_dirs <<< "$basePack_dirList"
 
-cd "$script_dir/../dist"
+cd "$SCRIPT_DIR/../dist"
 
 # Get modpack directories in dist folder
-repoPack_dirList=$(find . -maxdepth 1 ! -path . -type d | sed "s|^\./||")
-IFS=$'\n' read -r -a repoPack_dirs <<< "$repoPack_dirList"
+repoPack_dirList="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
+IFS=$'\n' read -d '' -a repoPack_dirs <<< "$repoPack_dirList"
 
-# packwiz curseforge import "$script_dir/dl/basePack"
+# Remove directories that are no longer in base pack
+for dir in "${repoPack_dirs[@]}"; do
+    if [[ ! " ${basePack_dirs[@]} " =~ " ${dir} " ]]; then
+        rm -rf "$dir"
+    fi
+done
+
+# packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
