@@ -11,3 +11,4 @@
 .gitattributes text eol=lf
 .gitignore text eol=lf
 .packwizignore text eol=lf
+basepack.exclude text eol=lf

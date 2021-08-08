@@ -1,0 +1,17 @@
+# Specifies files and directories to remove from the base modpack.
+# Patterns are specified relative to the root of the base modpack repository.
+# Patterns are passed literally to the shell as the arguments to rm -rf and use
+# bash path and wildcard expansion. As such, paths with spaces must be quoted or escaped.
+#
+# Base pack for this project is https://github.com/Kytech/CreateTogether
+
+automation/
+changelogs/
+server_files/
+*.sh
+*.bat
+*.jar
+*.md
+.gitattributes
+.gitignore
+.prettierrc

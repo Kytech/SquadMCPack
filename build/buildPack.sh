@@ -18,14 +18,21 @@ if ! which packwiz > /dev/null; then
 fi
 
 # Clear download cache
-# rm -rf "$SCRIPT_DIR/dl"
+rm -rf "$SCRIPT_DIR/dl"
 
-# git clone https://github.com/Kytech/CreateTogether.git "$SCRIPT_DIR/dl/basePack"
+git clone https://github.com/Kytech/CreateTogether.git "$SCRIPT_DIR/dl/basePack"
 cd "$SCRIPT_DIR/dl/basePack"
 
 # Remove files and directories not used in the modpack
-rm -rf .git/ .github/ automation/ changelogs/ server_files/ .gitattributes .gitignore .prettierrc *.sh *.bat *.jar *.md
-rm -rf packmenu/
+base_pack_exclude=(".git/" ".github/")
+IFS=$'\n' read -d '' -a basepack_exclude_file < "$SCRIPT_DIR/../basepack.exclude"
+base_pack_exclude+=("${basepack_exclude_file[@]}")
+basepack_exclude_comment_regex='^#'
+for file in "${base_pack_exclude[@]}"; do
+    if [ ! -z "$file" ] && [[ ! "$file" =~ $basepack_exclude_comment_regex ]]; then
+        rm -rf $file
+    fi
+done
 
 # Get list of folders in base modpack after cleanup of extra files
 modpack_dir_list="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
