@@ -2,25 +2,52 @@
 
 SCRIPT_DIR="$(cd $(dirname "${BASH_SOURCE[0]}"); pwd)"
 
-# Check for dependencies
+dependency_check() {
+    if ! which dos2unix > /dev/null; then
+        >&2 echo "Error: dos2unix not found."
+        >&2 echo "Either install the dos2unix utility, or, if on Windows, ensure you are"
+        >&2 echo "using the latest version of git for Windows (which should include dos2unix)."
+        exit 1
+    fi
 
-if ! which dos2unix > /dev/null; then
-    >&2 echo "Error: dos2unix not found."
-    >&2 echo "Either install the dos2unix utility, or, if on Windows, ensure you are"
-    >&2 echo "using the latest version of git for Windows (which should include dos2unix)."
-    exit 1
+    if ! which packwiz > /dev/null; then
+        >&2 echo "Error: packwiz not found."
+        >&2 echo "Packwiz can be downloaded from https://github.com/comp500/packwiz"
+        exit 1
+    fi
+}
+
+fetch_base_pack() {
+    rm -rf "$SCRIPT_DIR/dl"
+
+    git clone https://github.com/Kytech/CreateTogether.git "$SCRIPT_DIR/dl/basePack"
+}
+
+display_usage() {
+    >&2 echo "Usage: $0 [OPTIONS]"
+    >&2 echo ""
+    >&2 echo "Options:"
+    >&2 echo "  -h, --help              Display this help message"
+    >&2 echo "  -u, --update-basepack   Pull down the latest version of the base modpack when building"
+}
+
+dependency_check
+
+if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
+    display_usage    
+    exit 0
 fi
 
-if ! which packwiz > /dev/null; then
-    >&2 echo "Error: packwiz not found."
-    >&2 echo "Packwiz can be downloaded from https://github.com/comp500/packwiz"
-    exit 1
+valid_opts=("-h" "--help" "-u" "--update-basepack")
+if [ ! $# == 0 ] && [[ ! " ${valid_opts[@]} " =~ " $1 " ]]; then
+    display_usage
+    exit 2
 fi
 
-# Clear download cache
-rm -rf "$SCRIPT_DIR/dl"
+if [ ! -d "$SCRIPT_DIR/dl/basePack" ] || [ "$1" == "-u" ] || [ "$1" == "--update-basepack" ]; then
+    fetch_base_pack
+fi
 
-git clone https://github.com/Kytech/CreateTogether.git "$SCRIPT_DIR/dl/basePack"
 cd "$SCRIPT_DIR/dl/basePack"
 
 # Remove files and directories not used in the modpack
@@ -56,4 +83,5 @@ for dir in "${dist_dirs[@]}"; do
     fi
 done
 
+# Import base pack with packwiz
 packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
