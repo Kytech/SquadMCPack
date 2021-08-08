@@ -96,3 +96,19 @@ for override_dir in "${override_dirs[@]}"; do
     find "./$override_dir" -type f -exec dos2unix {} \;
     cp -R "./$override_dir" ./dist/
 done
+
+cd "$SCRIPT_DIR/../dist"
+
+# TODO: Remove mods listed in an exclude file
+
+# TODO: Test if mods folder gets wiped every time. If so, add mods from a mods.import file or something
+# If they aren't, just manually add things in once.
+
+# Refresh pack index to add new files
+packwiz refresh
+
+# TODO: Generate curseforge export in build folder
+
+# TODO: Generate MultiMC export in build folder
+
+# TODO: Print success message and display note to commit any changes made by this script
