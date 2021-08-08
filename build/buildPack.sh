@@ -50,7 +50,7 @@ fi
 
 cd "$SCRIPT_DIR/dl/basePack"
 
-# Remove files and directories not used in the modpack
+# Remove files and directories excluded from base modpack
 base_pack_exclude=(".git/" ".github/")
 IFS=$'\n' read -d '' -a basepack_exclude_file < "$SCRIPT_DIR/../basepack.exclude"
 base_pack_exclude+=("${basepack_exclude_file[@]}")
@@ -83,5 +83,5 @@ for dir in "${dist_dirs[@]}"; do
     fi
 done
 
-# Import base pack with packwiz
+# Import modified base pack with packwiz
 packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
