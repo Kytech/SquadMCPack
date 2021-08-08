@@ -27,21 +27,26 @@ cd "$SCRIPT_DIR/dl/basePack"
 rm -rf .git/ .github/ automation/ changelogs/ server_files/ .gitattributes .gitignore .prettierrc *.sh *.bat *.jar *.md
 rm -rf packmenu/
 
-# Get list of folders in base modpack
-basePack_dirList="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
-IFS=$'\n' read -d '' -a basePack_dirs <<< "$basePack_dirList"
+# Get list of folders in base modpack after cleanup of extra files
+modpack_dir_list="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
+IFS=$'\n' read -d '' -a modpack_dirs <<< "$modpack_dir_list"
 
 cd "$SCRIPT_DIR/../dist"
 
-# Get modpack directories in dist folder
-repoPack_dirList="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
-IFS=$'\n' read -d '' -a repoPack_dirs <<< "$repoPack_dirList"
+# Get names of modpack directories in dist folder
+dist_dir_list="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
+IFS=$'\n' read -d '' -a dist_dirs <<< "$dist_dir_list"
 
-# Remove directories that are no longer in base pack
-for dir in "${repoPack_dirs[@]}"; do
-    if [[ ! " ${basePack_dirs[@]} " =~ " ${dir} " ]]; then
+# Get names of modpack directories in repo root, excluding build and git folders
+override_dirs_list="$(find .. -maxdepth 1 ! -path .. ! -path ../.git ! -path ../build ! -path ../dist  -type d | sed 's|^\.\./||')"
+IFS=$'\n' read -d '' -a override_dirs <<< "$override_dirs_list"
+modpack_dirs+=("${override_dirs[@]}")
+
+# Remove directories that are no longer in base pack or repo root
+for dir in "${dist_dirs[@]}"; do
+    if [[ ! " ${modpack_dirs[@]} " =~ " ${dir} " ]]; then
         rm -rf "$dir"
     fi
 done
 
-# packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
+packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
