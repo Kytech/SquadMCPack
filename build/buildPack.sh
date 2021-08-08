@@ -28,7 +28,9 @@ display_usage() {
     >&2 echo ""
     >&2 echo "Options:"
     >&2 echo "  -h, --help              Display this help message"
-    >&2 echo "  -u, --update-basepack   Pull down the latest version of the base modpack when building"
+    >&2 echo "  -u, --update-basepack   Pull down the latest version of the base modpack and refresh the base"
+    >&2 echo "                          pack with the latest basepack.exclude settings when building the pack."
+    >&2 echo "                          This flag should be specified whenever basepack.exclude is updated."
 }
 
 dependency_check
@@ -85,3 +87,12 @@ done
 
 # Import modified base pack with packwiz
 packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
+
+cd "$SCRIPT_DIR/.."
+
+# Normalize file line endings in this repo to lf
+# Copy normalized files to modpack
+for override_dir in "${override_dirs[@]}"; do
+    find "./$override_dir" -type f -exec dos2unix {} \;
+    cp -R "./$override_dir" ./dist/
+done
