@@ -90,6 +90,9 @@ packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
 
 cd "$SCRIPT_DIR/.."
 
+# TODO: Check if any files being copied already exist in base pack
+# If so, fail with error noting that change should be made in base pack fork
+
 # Normalize file line endings in this repo to lf
 # Copy normalized files to modpack
 for override_dir in "${override_dirs[@]}"; do
