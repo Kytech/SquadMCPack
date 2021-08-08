@@ -90,12 +90,22 @@ packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
 
 cd "$SCRIPT_DIR/.."
 
-# TODO: Check if any files being copied already exist in base pack
-# If so, fail with error noting that change should be made in base pack fork
-
 # Normalize file line endings in this repo to lf
 # Copy normalized files to modpack
 for override_dir in "${override_dirs[@]}"; do
+    # Check to make sure files do not exist before copying
+    files_to_copy_list="$(find ./$override_dir -type f | sed 's|^\./||')"
+    IFS=$'\n' read -d '' -a files_to_copy <<< "$files_to_copy_list"
+    for file in "${files_to_copy[@]}"; do
+        if [ -f "$SCRIPT_DIR/dl/basePack/$file" ]; then
+            >&2 echo "Error: Conflicting files. $file already exists in the base modpack."
+            >&2 echo "If you need to modify this file, modify it in the base pack and rebuild with the -u flag"
+            >&2 echo "after committing and pushing to base pack repo. Remove the file from this repo after"
+            >&2 echo "addressing this error."
+            exit 1
+        fi
+    done
+
     find "./$override_dir" -type f -exec dos2unix {} \;
     cp -R "./$override_dir" ./dist/
 done
