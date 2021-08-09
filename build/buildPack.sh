@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SCRIPT_DIR="$(cd $(dirname "${BASH_SOURCE[0]}"); pwd)"
+COMMENT_REGEX='^#'
 
 dependency_check() {
     if ! which dos2unix > /dev/null; then
@@ -15,10 +16,23 @@ dependency_check() {
         >&2 echo "Packwiz can be downloaded from https://github.com/comp500/packwiz"
         exit 1
     fi
+
+    if ! which curl > /dev/null; then
+        >&2 echo "Error: curl not found."
+        >&2 echo "Curl can be installed via a package mamager or downloaded from https://curl.se/"
+        >&2 echo "On Windows, curl is shipped with the OS by default since Windows 10 version 1803"
+        >&2 echo "(build 17063 or newer). Older Windows versions should download/install curl manually."
+        exit 1
+    fi
 }
 
 fetch_base_pack() {
     rm -rf "$SCRIPT_DIR/dl/basePack"
+
+    pushd "$SCRIPT_DIR/../dist" > /dev/null
+    rm index.toml pack.toml 2> /dev/null
+    find . -maxdepth 1 ! -path . -type d -exec rm -rf "{}" \;
+    popd > /dev/null
 
     git clone https://github.com/Kytech/CreateTogether.git "$SCRIPT_DIR/dl/basePack"
 
@@ -28,9 +42,8 @@ fetch_base_pack() {
     base_pack_exclude=(".git/" ".github/")
     IFS=$'\n' read -d '' -a basepack_exclude_file < "$SCRIPT_DIR/../basepack.exclude"
     base_pack_exclude+=("${basepack_exclude_file[@]}")
-    basepack_exclude_comment_regex='^#'
     for file in "${base_pack_exclude[@]}"; do
-        if [ ! -z "$file" ] && [[ ! "$file" =~ $basepack_exclude_comment_regex ]]; then
+        if [ ! -z "$file" ] && [[ ! "$file" =~ $COMMENT_REGEX ]]; then
             rm -rf $file
         fi
     done
@@ -50,10 +63,9 @@ display_usage() {
     >&2 echo ""
     >&2 echo "Options:"
     >&2 echo "  -h, --help              Display this help message"
-    >&2 echo "  -u, --update-basepack   Pull down the latest version of the base modpack and refresh the base"
-    >&2 echo "                          pack with the latest basepack.exclude settings when building the pack."
-    >&2 echo "                          This flag should be specified whenever any .exclude file is updated or"
-    >&2 echo "                          when rebuilding the dist folder if all its contents were manually deleted."
+    >&2 echo "  -u, --update-basepack   Pull in the latest version of the base modpack and refresh the base"
+    >&2 echo "                          pack import with the latest .exclude file contents. This flag should be"
+    >&2 echo "                          specified whenever any .exclude file is updated."
 }
 
 dependency_check
@@ -119,8 +131,7 @@ done
 
 cd "$SCRIPT_DIR/../dist"
 
-# TODO: Test if mods folder gets wiped every time. If so, add mods from a mods.import file or something
-# If they aren't, just manually add things in once.
+# TODO: Add mods from file
 
 # Refresh pack index to add new files
 packwiz refresh
