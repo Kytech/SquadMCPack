@@ -35,6 +35,13 @@ fetch_base_pack() {
         fi
     done
 
+    cd "$SCRIPT_DIR/../dist"
+
+    # Import base pack with packwiz
+    packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
+
+    # TODO: Remove mods listed in an exclude file
+
     popd > /dev/null
 }
 
@@ -87,9 +94,6 @@ for dir in "${dist_dirs[@]}"; do
     fi
 done
 
-# Import modified base pack with packwiz
-packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
-
 cd "$SCRIPT_DIR/.."
 
 # Normalize file line endings in this repo to lf
@@ -113,8 +117,6 @@ for dir_to_merge in "${additional_pack_dirs[@]}"; do
 done
 
 cd "$SCRIPT_DIR/../dist"
-
-# TODO: Remove mods listed in an exclude file
 
 # TODO: Test if mods folder gets wiped every time. If so, add mods from a mods.import file or something
 # If they aren't, just manually add things in once.
