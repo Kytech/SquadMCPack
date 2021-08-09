@@ -18,7 +18,7 @@ dependency_check() {
 }
 
 fetch_base_pack() {
-    rm -rf "$SCRIPT_DIR/dl"
+    rm -rf "$SCRIPT_DIR/dl/basePack"
 
     git clone https://github.com/Kytech/CreateTogether.git "$SCRIPT_DIR/dl/basePack"
 
@@ -45,7 +45,7 @@ display_usage() {
     >&2 echo "  -h, --help              Display this help message"
     >&2 echo "  -u, --update-basepack   Pull down the latest version of the base modpack and refresh the base"
     >&2 echo "                          pack with the latest basepack.exclude settings when building the pack."
-    >&2 echo "                          This flag should be specified whenever basepack.exclude is updated."
+    >&2 echo "                          This flag should be specified whenever any .exclude file is updated."
 }
 
 dependency_check
