@@ -52,7 +52,8 @@ display_usage() {
     >&2 echo "  -h, --help              Display this help message"
     >&2 echo "  -u, --update-basepack   Pull down the latest version of the base modpack and refresh the base"
     >&2 echo "                          pack with the latest basepack.exclude settings when building the pack."
-    >&2 echo "                          This flag should be specified whenever any .exclude file is updated."
+    >&2 echo "                          This flag should be specified whenever any .exclude file is updated or"
+    >&2 echo "                          when rebuilding the dist folder if all its contents were manually deleted."
 }
 
 dependency_check
@@ -79,7 +80,7 @@ IFS=$'\n' read -d '' -a modpack_dirs <<< "$modpack_dir_list"
 cd "$SCRIPT_DIR/.."
 additional_pack_dirs_list="$(find . -maxdepth 1 ! -path . ! -path ./.git ! -path ./build ! -path ./dist  -type d | sed 's|^\./||')"
 IFS=$'\n' read -d '' -a additional_pack_dirs <<< "$additional_pack_dirs_list"
-modpack_dirs+=("${additional_pack_dirs[@]}")
+modpack_dirs+=("${additional_pack_dirs[@]}" "mods")
 
 cd "$SCRIPT_DIR/../dist"
 
