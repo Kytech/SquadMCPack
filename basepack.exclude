@@ -3,11 +3,15 @@
 # Patterns are passed literally to the shell as the arguments to rm -rf and use
 # bash path and wildcard expansion. As such, paths with spaces must be quoted or escaped.
 #
+# Whenever this file is edited, run the build script with the -u flag as follows:
+# build/buildPack.sh -u
+#
 # Base pack for this project is https://github.com/Kytech/CreateTogether
 
 automation/
 changelogs/
 server_files/
+packmenu/
 *.sh
 *.bat
 *.jar

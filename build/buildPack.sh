@@ -30,7 +30,7 @@ fetch_base_pack() {
     rm -rf "$SCRIPT_DIR/dl/basePack"
 
     pushd "$SCRIPT_DIR/../dist" > /dev/null
-    rm index.toml pack.toml 2> /dev/null
+    find .  -maxdepth 1 -type f -name "*.toml" -exec rm "{}" \;
     find . -maxdepth 1 ! -path . -type d -exec rm -rf "{}" \;
     popd > /dev/null
 
@@ -53,7 +53,13 @@ fetch_base_pack() {
     # Import base pack with packwiz
     packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
 
-    # TODO: Remove mods listed in an exclude file
+    # Remove excluded mods
+    IFS=$'\n' read -d '' -a basepack_mod_exclude < "$SCRIPT_DIR/../basepack_mods.exclude"
+    for mod in "${basepack_mod_exclude[@]}"; do
+        if [ ! -z "$mod" ] && [[ ! "$mod" =~ $COMMENT_REGEX ]]; then
+            packwiz remove "$mod"
+        fi
+    done
 
     popd > /dev/null
 }

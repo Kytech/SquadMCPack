@@ -1,0 +1,11 @@
+# List of mods to exclude from the base pack by name.
+# The name to specify is the file name in the dist/mods folder after initial build,
+# minus the file extension.
+# Each mod to exclude should be on its own line.
+#
+# Whenever this file is edited, run the build script with the -u flag as follows:
+# build/buildPack.sh -u
+#
+# Base pack for this project is https://github.com/Kytech/CreateTogether
+
+packmenu
