@@ -141,16 +141,27 @@ done
 
 cd "$SCRIPT_DIR/../dist"
 
+mod_install_err="false"
+
 # Add mods from mod imports file
 IFS=$'\n' read -d '' -a mod_imports < "$SCRIPT_DIR/../mods.include"
 for mod in "${mod_imports[@]}"; do
     if [ ! -z "$mod" ] && [[ ! "$mod" =~ $COMMENT_REGEX ]]; then
-        packwiz curseforge install "$mod"
+        if ! packwiz curseforge install $mod; then
+            >&2 echo "ERROR: Unable to install mod $mod"
+            >&2 echo "Try specifying the project/mod ID or a file ID instead"
+            >&2 echo "If you need a specific version, you can also try the direct download URL if not already attempted."
+            mod_install_err="true"
+        fi
     fi
 done
 
 # Refresh pack index to add new files
 packwiz refresh
+
+if [ "$mod_install_err" == "true" ]; then
+    >&2 echo $'\nWARN: Unable to install all mods in mods.include file. Check the above output for details.'
+fi
 
 # TODO: Generate curseforge export in build folder
 

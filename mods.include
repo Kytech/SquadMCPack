@@ -1,12 +1,28 @@
 # This file contains a list of mods to add to the base pack.
 # Each mod to be added is specified on its own line and can be given as a curseforge
 # URL, Mod ID, or name, though specifying a name may result in prompts if the name cannot
-# resolve exactly, preventing unattended builds.
+# resolve exactly, preventing unattended builds. If you receive an error stating "addon not
+# found" during the build process, try using a Project/Mod ID or curseforge file ID instead.
 #
+# You may freely add comment and blank lines anywhere in the file. Comments are lines that
+# start with a '#' sign
+#
+# URL Format: Entire URL (incl. protocol) on single line
 # A URL to the mod's curseforge page installs the latest for the MC version.
 # A URL to a specific version download will install that specific version.
 # If you get a prompt for a specific mod when using a project URL, specify the direct download
 # URL instead to avoid the prompt.
+#
+# Project ID Format: On a new line, add the value "--addon-id <Project/Mod ID>", replacing the
+# <Project/Mod ID> with the ID of the Mod you wish to add. Typically used if URL or name doesn't work.
+#
+# File ID Format: On a new line, add "--file-id <FileID>", replacing <FileID> with the specific curse
+# file ID of the mod to download (usually the numbers at the end of a file donwload link). This installs A
+# specific version of the mod.
+#
+# Name Format: On a new line, enter the name of the mod as similar to the official project name as possible.
+# If the name has a space in it, surround the name with quotes. This is generally the least reliable method,
+# but it is convenient and very readable.
 #
 # The order you specify the mods in is the order they will be installed. If a mod has dependencies
 # that are not yet installed, you will be prompted for them. To avoid the prompt and allow unattended builds,
@@ -21,18 +37,28 @@
 #
 # build/buildPack.sh -u
 
+# Abnormals core v3.1.1 - Is a dependency and need this specific version
+https://www.curseforge.com/minecraft/mc-mods/abnormals-core/download/3233486
+
+https://www.curseforge.com/minecraft/mc-mods/variant16x
 https://www.curseforge.com/minecraft/mc-mods/dynamic-surroundings
 https://www.curseforge.com/minecraft/mc-mods/biomes-o-plenty
 https://www.curseforge.com/minecraft/mc-mods/quark-o-plenty
-https://www.curseforge.com/minecraft/mc-mods/serene-seasons
-https://www.curseforge.com/minecraft/mc-mods/variant16x
 https://www.curseforge.com/minecraft/mc-mods/variant16x-biomesoplenty
-https://www.curseforge.com/minecraft/mc-mods/abnormals-core/download/3233486
+https://www.curseforge.com/minecraft/mc-mods/serene-seasons
 https://www.curseforge.com/minecraft/mc-mods/just-enough-resources-jer
 https://www.curseforge.com/minecraft/mc-mods/yungs-api
+https://www.curseforge.com/minecraft/mc-mods/yungs-extras/download/3303283
 https://www.curseforge.com/minecraft/mc-mods/yungs-better-mineshafts-forge
 https://www.curseforge.com/minecraft/mc-mods/yungs-better-caves
-https://www.curseforge.com/minecraft/mc-mods/yungs-better-strongholds
-https://www.curseforge.com/minecraft/mc-mods/yungs-extras
-https://www.curseforge.com/minecraft/mc-mods/yungs-better-dungeons/download/3419642
 https://www.curseforge.com/minecraft/mc-mods/betterend-forge-port
+
+
+# YUNG's Better Dungeons - URL reference does not seem to work
+--addon-id 510089
+
+# YUNG's Extras - URL Reference only works for specific version link
+--addon-id 480006
+
+# YUNG's Better Strongholds - URL reference only works when explicitly specifying specific file
+--addon-id 465575
