@@ -75,7 +75,7 @@ display_usage() {
     >&2 echo "  -h, --help              Display this help message"
     >&2 echo "  -u, --update-basepack   Pull in the latest version of the base modpack and refresh the base"
     >&2 echo "                          pack import with the latest .exclude file contents. This flag should be"
-    >&2 echo "                          specified whenever any .exclude file is updated."
+    >&2 echo "                          specified whenever any .exclude file is updated or when removing mods."
 }
 
 dependency_check
