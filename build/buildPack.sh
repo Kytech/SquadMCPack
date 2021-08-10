@@ -95,14 +95,25 @@ if [ ! -d "$SCRIPT_DIR/dl/basePack" ] || [ "$1" == "-u" ] || [ "$1" == "--update
     fetch_base_pack
 fi
 
-# Get list of folders that need to be in the modpack
+# Get list of folders and files that need to be in the modpack
 cd "$SCRIPT_DIR/dl/basePack"
+modpack_files=()
 modpack_dir_list="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
 IFS=$'\n' read -d '' -a modpack_dirs <<< "$modpack_dir_list"
+for dir in "${modpack_dirs[@]}"; do
+    modpack_dir_files_list="$(find "$dir" -type f)"
+    IFS=$'\n' read -d '' -a modpack_dir_files <<< "$modpack_dir_files_list"
+    modpack_files+=("${modpack_dir_files[@]}")
+done
 cd "$SCRIPT_DIR/.."
 additional_pack_dirs_list="$(find . -maxdepth 1 ! -path . ! -path ./.git ! -path ./build ! -path ./pack-meta  -type d | sed 's|^\./||')"
 IFS=$'\n' read -d '' -a additional_pack_dirs <<< "$additional_pack_dirs_list"
 modpack_dirs+=("${additional_pack_dirs[@]}" "mods")
+for dir in "${additional_pack_dirs[@]}"; do
+    modpack_dir_files_list="$(find "$dir" -type f)"
+    IFS=$'\n' read -d '' -a modpack_additional_dir_files <<< "$modpack_dir_files_list"
+    modpack_files+=("${modpack_additional_dir_files[@]}")
+done
 
 cd "$SCRIPT_DIR/../pack-meta"
 
@@ -110,11 +121,18 @@ cd "$SCRIPT_DIR/../pack-meta"
 pack_meta_dir_list="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
 IFS=$'\n' read -d '' -a pack_meta_dirs <<< "$pack_meta_dir_list"
 
-# Remove directories that are no longer in base pack or repo root
+# Remove files and directories that are no longer in base pack or repo root
 for dir in "${pack_meta_dirs[@]}"; do
     if [[ ! " ${modpack_dirs[@]} " =~ " ${dir} " ]]; then
         rm -rf "$dir"
     fi
+    meta_files_list="$(find "$dir" -type f)"
+    IFS=$'\n' read -d '' -a meta_files <<< "$meta_files_list"
+    for file in "${meta_files[@]}"; do
+        if [[ ! " ${modpack_files[@]} " =~ " $file " ]]; then
+            rm "$file"
+        fi
+    done
 done
 
 cd "$SCRIPT_DIR/.."
@@ -123,7 +141,7 @@ cd "$SCRIPT_DIR/.."
 # Copy normalized files to modpack
 for dir_to_merge in "${additional_pack_dirs[@]}"; do
     # Check to make sure files do not exist before copying
-    files_to_copy_list="$(find ./$dir_to_merge -type f | sed 's|^\./||')"
+    files_to_copy_list="$(find "$dir_to_merge" -type f)"
     IFS=$'\n' read -d '' -a files_to_copy <<< "$files_to_copy_list"
     for file in "${files_to_copy[@]}"; do
         if [ -f "$SCRIPT_DIR/dl/basePack/$file" ]; then

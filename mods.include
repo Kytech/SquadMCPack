@@ -40,6 +40,9 @@
 # Abnormals core v3.1.1 - Is a dependency and need this specific version
 https://www.curseforge.com/minecraft/mc-mods/abnormals-core/download/3233486
 
+# JEI is reported as a dependency, even though it is included in base pack
+--addon-id 238222
+
 https://www.curseforge.com/minecraft/mc-mods/variant16x
 https://www.curseforge.com/minecraft/mc-mods/dynamic-surroundings
 https://www.curseforge.com/minecraft/mc-mods/biomes-o-plenty
