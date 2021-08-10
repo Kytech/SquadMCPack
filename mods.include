@@ -1,0 +1,28 @@
+# This file contains a list of mods to add to the base pack.
+# Each mod to be added is specified on its own line and can be given as a curseforge
+# URL, Mod ID, or name, though specifying a name may result in prompts if the name cannot
+# resolve exactly, preventing unattended builds.
+#
+# A URL to the mod's curseforge page installs the latest for the MC version.
+# A URL to a specific version download will install that specific version.
+#
+# After editing this file, run the build script as follows: (the -u parameter is optional
+# if no .exclude file was also edited)
+#
+# build/buildPack.sh 
+
+https://www.curseforge.com/minecraft/mc-mods/dynamic-surroundings
+https://www.curseforge.com/minecraft/mc-mods/biomes-o-plenty
+https://www.curseforge.com/minecraft/mc-mods/serene-seasons
+https://www.curseforge.com/minecraft/mc-mods/just-enough-resources-jer
+https://www.curseforge.com/minecraft/mc-mods/quark-o-plenty
+https://www.curseforge.com/minecraft/mc-mods/abnormals-core/download/3233486
+https://www.curseforge.com/minecraft/mc-mods/variant16x-biomesoplenty
+https://www.curseforge.com/minecraft/mc-mods/yungs-better-mineshafts-forge
+https://www.curseforge.com/minecraft/mc-mods/yungs-better-caves
+https://www.curseforge.com/minecraft/mc-mods/yungs-api
+https://www.curseforge.com/minecraft/mc-mods/yungs-better-strongholds
+https://www.curseforge.com/minecraft/mc-mods/yungs-extras
+https://www.curseforge.com/minecraft/mc-mods/yungs-better-dungeons
+https://www.curseforge.com/minecraft/mc-mods/betterend-forge-port
+https://www.curseforge.com/minecraft/mc-mods/variant16x

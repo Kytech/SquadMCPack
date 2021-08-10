@@ -9,6 +9,7 @@
 *.bat text eol=crlf
 *.cmd text eol=crlf
 *.exclude text eol=lf
+*.include text eol=lf
 .gitattributes text eol=lf
 .gitignore text eol=lf
 .packwizignore text eol=lf

@@ -67,6 +67,10 @@ fetch_base_pack() {
 display_usage() {
     >&2 echo "Usage: $0 [OPTIONS]"
     >&2 echo ""
+    >&2 echo "This script builds/re-builds the modified version of the base modpack based on the contents of"
+    >&2 echo "the mods.include, basepack.exclude, and basepack_mods.exclude files while also importing the"
+    >&2 echo "contents of the root of the repo into the minecraft instance folder of the resulting pack."
+    >&2 echo ""
     >&2 echo "Options:"
     >&2 echo "  -h, --help              Display this help message"
     >&2 echo "  -u, --update-basepack   Pull in the latest version of the base modpack and refresh the base"
@@ -137,7 +141,13 @@ done
 
 cd "$SCRIPT_DIR/../dist"
 
-# TODO: Add mods from file
+# Add mods from mod imports file
+IFS=$'\n' read -d '' -a mod_imports < "$SCRIPT_DIR/../mods.include"
+for mod in "${mod_imports[@]}"; do
+    if [[ ! " ${modpack_dirs[@]} " =~ " ${dir} " ]]; then
+        packwiz curseforge install "$mod"
+    fi
+done
 
 # Refresh pack index to add new files
 packwiz refresh
