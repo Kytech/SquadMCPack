@@ -1,13 +1,19 @@
 # SquadMCPack
 
-TODO: Note the upstream and that this is a fork
+This modpack builds off of the [CreateTogether](https://github.com/NillerMedDild/CreateTogether) modpack to further tweak and expand on it for the use of a personal server. This repository works in conjunction with a fork of the create together modpack.
+
+To download and use the pack, skip down to the downloading section.
+
+This repository mostly consists of a build script that applies modifications to a [fork of the CreateTogether modpack.](https://github.com/Kytech/CreateTogether) Modifications to the original CreateTogether pack are managed in both this repository and the fork of CreateTogether. The fork of CreateTogether manages edits to existing CreateTogether mod configs, while additions and removal of mods and files from CreateTogether are managed in this repo.
+
+The [fork](https://github.com/Kytech/CreateTogether) of the CreateTogether modpack is what is referred to as the base pack for this project. The base pack is a fork of the original to allow an easier workflow for pulling in updates from the original pack while preserving modifications to configs in the original pack mods.
 
 ## Downlaoding
 
 TODO: Fill out this section
 ## Building and Modifying the Pack
 
-Building of this pack is handled via a series of configuration files and a build script. This script takes the base back, applies modifications, and exports a new modpack with the configured changes.
+Building of this pack is handled via a series of configuration files and a build script. This script takes the base pack, applies modifications, and exports a new modpack with the configured changes.
 
 The build script is located in `build/`. It has a dependency of packwiz, dos2unix, and curl. These utilities need to be available in your PATH environment variable. If you run the script without the dependencies installed, you will be prompted with information as to where to obtain these tools based on your OS.
 
