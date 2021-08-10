@@ -41,6 +41,8 @@
 https://www.curseforge.com/minecraft/mc-mods/abnormals-core/download/3233486
 
 # JEI is reported as a dependency, even though it is included in base pack
+# Possible that one of these mods requires a slightly newer version as a dependency
+# than the base pack's included version as a dependency.
 --addon-id 238222
 
 https://www.curseforge.com/minecraft/mc-mods/variant16x
