@@ -29,7 +29,7 @@ dependency_check() {
 fetch_base_pack() {
     rm -rf "$SCRIPT_DIR/dl/basePack"
 
-    pushd "$SCRIPT_DIR/../dist" > /dev/null
+    pushd "$SCRIPT_DIR/../pack-meta" > /dev/null
     find .  -maxdepth 1 -type f -name "*.toml" -exec rm "{}" \;
     find . -maxdepth 1 ! -path . -type d -exec rm -rf "{}" \;
     popd > /dev/null
@@ -48,7 +48,7 @@ fetch_base_pack() {
         fi
     done
 
-    cd "$SCRIPT_DIR/../dist"
+    cd "$SCRIPT_DIR/../pack-meta"
 
     # Import base pack with packwiz
     packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
@@ -100,18 +100,18 @@ cd "$SCRIPT_DIR/dl/basePack"
 modpack_dir_list="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
 IFS=$'\n' read -d '' -a modpack_dirs <<< "$modpack_dir_list"
 cd "$SCRIPT_DIR/.."
-additional_pack_dirs_list="$(find . -maxdepth 1 ! -path . ! -path ./.git ! -path ./build ! -path ./dist  -type d | sed 's|^\./||')"
+additional_pack_dirs_list="$(find . -maxdepth 1 ! -path . ! -path ./.git ! -path ./build ! -path ./pack-meta  -type d | sed 's|^\./||')"
 IFS=$'\n' read -d '' -a additional_pack_dirs <<< "$additional_pack_dirs_list"
 modpack_dirs+=("${additional_pack_dirs[@]}" "mods")
 
-cd "$SCRIPT_DIR/../dist"
+cd "$SCRIPT_DIR/../pack-meta"
 
-# Get names of modpack directories in dist folder
-dist_dir_list="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
-IFS=$'\n' read -d '' -a dist_dirs <<< "$dist_dir_list"
+# Get names of modpack directories in pack-meta folder
+pack-meta_dir_list="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
+IFS=$'\n' read -d '' -a pack-meta_dirs <<< "$pack-meta_dir_list"
 
 # Remove directories that are no longer in base pack or repo root
-for dir in "${dist_dirs[@]}"; do
+for dir in "${pack-meta_dirs[@]}"; do
     if [[ ! " ${modpack_dirs[@]} " =~ " ${dir} " ]]; then
         rm -rf "$dir"
     fi
@@ -136,10 +136,10 @@ for dir_to_merge in "${additional_pack_dirs[@]}"; do
     done
 
     find "./$dir_to_merge" -type f -exec dos2unix "{}" \;
-    cp -R "./$dir_to_merge" ./dist/
+    cp -R "./$dir_to_merge" ./pack-meta/
 done
 
-cd "$SCRIPT_DIR/../dist"
+cd "$SCRIPT_DIR/../pack-meta"
 
 mod_install_err="false"
 

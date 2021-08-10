@@ -1,5 +1,5 @@
 # List of mods to exclude from the base pack by name.
-# The name to specify is the file name in the dist/mods folder after initial build,
+# The name to specify is the file name in the pack-meta/mods folder after initial build,
 # minus the file extension.
 # Each mod to exclude should be on its own line.
 #

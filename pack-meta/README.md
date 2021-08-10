@@ -1,4 +1,4 @@
-# Dist folder
+# Pack-meta folder
 
 Files in this folder should not be edited by hand. These files are managed by the build script.
 

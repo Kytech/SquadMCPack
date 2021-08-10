@@ -20,7 +20,7 @@ The build script is located in `build/`. It has a dependency of packwiz, dos2uni
 This script should have the needed UNIX permissions set to be executable. For Windows, this script can be executed
 through Git Bash.
 
-Files in the `dist/` directory and the `build/dl` directory are managed by the build script and should not be manually edited. Any changes to any files made by the build script should be committed to Git if the changes are to be permanent.
+Files in the `pack-meta/` directory and the `build/dl` directory are managed by the build script and should not be manually edited. Any changes to any files made by the build script should be committed to Git if the changes are to be permanent.
 
 ### Building the Pack
 
