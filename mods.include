@@ -6,6 +6,10 @@
 # A URL to the mod's curseforge page installs the latest for the MC version.
 # A URL to a specific version download will install that specific version.
 #
+# The order you specify the mods in is the order they will be installed. If a mod has dependencies
+# that are not yet installed, you will be prompted for them. To avoid the prompt and allow unattended builds,
+# Add the dependecy mods before the mod(s) that require that dependency.
+#
 # After editing this file, run the build script as follows: (the -u parameter is optional
 # if no .exclude file was also edited)
 #
