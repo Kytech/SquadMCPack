@@ -144,7 +144,7 @@ cd "$SCRIPT_DIR/../dist"
 # Add mods from mod imports file
 IFS=$'\n' read -d '' -a mod_imports < "$SCRIPT_DIR/../mods.include"
 for mod in "${mod_imports[@]}"; do
-    if [[ ! " ${modpack_dirs[@]} " =~ " ${dir} " ]]; then
+    if [ ! -z "$mod" ] && [[ ! "$mod" =~ $COMMENT_REGEX ]]; then
         packwiz curseforge install "$mod"
     fi
 done
