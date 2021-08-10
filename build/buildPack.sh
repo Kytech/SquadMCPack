@@ -135,7 +135,7 @@ for dir_to_merge in "${additional_pack_dirs[@]}"; do
         fi
     done
 
-    find "./$dir_to_merge" -type f -exec dos2unix {} \;
+    find "./$dir_to_merge" -type f -exec dos2unix "{}" \;
     cp -R "./$dir_to_merge" ./dist/
 done
 
