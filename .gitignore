@@ -1,1 +1,4 @@
-build/dl/basePack/**
+build/out/
+
+build/dl/*
+!build/dl/README.md
