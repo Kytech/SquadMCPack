@@ -107,11 +107,11 @@ modpack_dirs+=("${additional_pack_dirs[@]}" "mods")
 cd "$SCRIPT_DIR/../pack-meta"
 
 # Get names of modpack directories in pack-meta folder
-pack-meta_dir_list="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
-IFS=$'\n' read -d '' -a pack-meta_dirs <<< "$pack-meta_dir_list"
+pack_meta_dir_list="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
+IFS=$'\n' read -d '' -a pack_meta_dirs <<< "$pack_meta_dir_list"
 
 # Remove directories that are no longer in base pack or repo root
-for dir in "${pack-meta_dirs[@]}"; do
+for dir in "${pack_meta_dirs[@]}"; do
     if [[ ! " ${modpack_dirs[@]} " =~ " ${dir} " ]]; then
         rm -rf "$dir"
     fi
