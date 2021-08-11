@@ -1,7 +1,15 @@
 # Specifies files and directories to remove from the base modpack.
 # Patterns are specified relative to the root of the base modpack repository.
 # Patterns are passed literally to the shell as the arguments to rm -rf and use
-# bash path and wildcard expansion. As such, paths with spaces must be quoted or escaped.
+# bash path and wildcard expansion. As such, paths with spaces must be quoted or \ escaped.
+#
+# Using '..' to access a parent directory is not allowed in this file as it could result
+# in removing files not part of the base pack. Additionally, specifying paths that start
+# with / (absolute path) is discouraged as all paths in this file should be relative to the base pack
+# root. If an absolute path is specified, the preceding slash is removed and interpreted as a relative
+# path from the base pack root. However, if the rewriting logic for absolute paths somehow gets bugged out,
+# it could risk deleting something form your root directory (which is why direct paths are discouraged!
+# in this file).
 #
 # Whenever this file is edited, run the build script with the -u flag as follows:
 # build/buildPack.sh -u

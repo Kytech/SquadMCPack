@@ -2,6 +2,7 @@
 
 SCRIPT_DIR="$(cd $(dirname "${BASH_SOURCE[0]}"); pwd)"
 COMMENT_REGEX='^#'
+ABSOLUTE_PATH_REGEX="^[\"']?/"
 
 dependency_check() {
     if ! which dos2unix > /dev/null; then
@@ -27,36 +28,53 @@ dependency_check() {
 }
 
 fetch_base_pack() {
-    rm -rf "$SCRIPT_DIR/dl/basePack"
+    if [ -d "$SCRIPT_DIR/dl/basePack" ]; then
+        echo "Clearing base pack download cache..."
+        rm -rf "$SCRIPT_DIR/dl/basePack"
+    fi
 
+    echo "Cleaning workspace and pack meta..."
     pushd "$SCRIPT_DIR/../pack-meta" > /dev/null
     find .  -maxdepth 1 -type f -name "*.toml" -exec rm "{}" \;
     find . -maxdepth 1 ! -path . -type d -exec rm -rf "{}" \;
     popd > /dev/null
 
+    echo "Pulling down latest version of base pack..."
     git clone https://github.com/Kytech/CreateTogether.git "$SCRIPT_DIR/dl/basePack"
 
     pushd "$SCRIPT_DIR/dl/basePack" > /dev/null
 
     # Remove files and directories excluded from base modpack
+    echo "Removing files from base pack specified in basepack.exclude..."
     base_pack_exclude=(".git/" ".github/")
     IFS=$'\n' read -d '' -a basepack_exclude_file < "$SCRIPT_DIR/../basepack.exclude"
     base_pack_exclude+=("${basepack_exclude_file[@]}")
     for file in "${base_pack_exclude[@]}"; do
         if [ ! -z "$file" ] && [[ ! "$file" =~ $COMMENT_REGEX ]]; then
-            # TODO: Make sure this checks for a preceding /. If so remove it
-            # Don't want to accidentally nuke root!
-            # Throw invalid syntax if a .. is specified anywhere
+            # Strip off any preceding single slashes to avoid deleting something important by accident (like root)
+            if [[ "$file" =~ $ABSOLUTE_PATH_REGEX ]]; then
+                file="$(echo "$file" | sed -E "s|([\"'])?/(.*)(\"')?|\1\2\3|")"
+            fi
+            # Disallow double-dot parent directory specifier to avoid this file from impacting anything above
+            # the base pack directory tree
+            if [[ "$(dirname "$file")" =~ ".." ]]; then
+                >&2 echo "ERROR: Syntax Error in basepack.exclude"
+                >&2 echo "Use of '..' in a path in basepack.exclude is not permitted."
+                exit 1
+            fi
             rm -rf $file
+            echo "Removed $file from base pack."
         fi
     done
 
     cd "$SCRIPT_DIR/../pack-meta"
 
     # Import base pack with packwiz
+    echo "Importing base pack to packwiz..."
     packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
 
     # Remove excluded mods
+    echo "Removing mods from base pack specified in basepack_mods.exclude..."
     IFS=$'\n' read -d '' -a basepack_mod_exclude < "$SCRIPT_DIR/../basepack_mods.exclude"
     for mod in "${basepack_mod_exclude[@]}"; do
         if [ ! -z "$mod" ] && [[ ! "$mod" =~ $COMMENT_REGEX ]]; then
@@ -100,6 +118,7 @@ if [ ! -d "$SCRIPT_DIR/dl/basePack" ] || [ "$1" == "-u" ] || [ "$1" == "--update
 fi
 
 # Get list of folders and files that need to be in the modpack
+echo "Enumerating additional files to add to modpack..."
 cd "$SCRIPT_DIR/dl/basePack"
 modpack_files=()
 modpack_dir_list="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
