@@ -112,7 +112,7 @@ done
 cd "$SCRIPT_DIR/.."
 additional_pack_dirs_list="$(find . -maxdepth 1 ! -path . ! -path ./.git ! -path ./build ! -path ./pack-meta  -type d | sed 's|^\./||')"
 IFS=$'\n' read -d '' -a additional_pack_dirs <<< "$additional_pack_dirs_list"
-modpack_dirs+=("${additional_pack_dirs[@]}" "mods")
+modpack_dirs+=("${additional_pack_dirs[@]}")
 for dir in "${additional_pack_dirs[@]}"; do
     modpack_dir_files_list="$(find "$dir" -type f)"
     IFS=$'\n' read -d '' -a modpack_additional_dir_files <<< "$modpack_dir_files_list"
@@ -121,8 +121,8 @@ done
 
 cd "$SCRIPT_DIR/../pack-meta"
 
-# Get names of modpack directories in pack-meta folder
-pack_meta_dir_list="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
+# Get names of modpack directories in pack-meta folder, excluding the packwiz managed mods folder
+pack_meta_dir_list="$(find . -maxdepth 1 ! -path . ! -path ./mods -type d | sed 's|^\./||')"
 IFS=$'\n' read -d '' -a pack_meta_dirs <<< "$pack_meta_dir_list"
 
 # Remove files and directories that are no longer in base pack or repo root
@@ -134,6 +134,7 @@ for dir in "${pack_meta_dirs[@]}"; do
         IFS=$'\n' read -d '' -a meta_files <<< "$meta_files_list"
         for file in "${meta_files[@]}"; do
             if [[ ! " ${modpack_files[@]} " =~ " $file " ]]; then
+                echo "Removing $file"
                 rm "$file"
             fi
         done
