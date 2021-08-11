@@ -41,6 +41,7 @@ fetch_base_pack() {
 
     echo "Pulling down latest version of base pack..."
     git clone https://github.com/Kytech/CreateTogether.git "$SCRIPT_DIR/dl/basePack"
+    echo "Successfully pulled down latest version of base pack!"
 
     pushd "$SCRIPT_DIR/dl/basePack" > /dev/null
 
@@ -66,12 +67,14 @@ fetch_base_pack() {
             echo "Removed $file from base pack."
         fi
     done
+    echo "Removal of files from base pack complete!"
 
     cd "$SCRIPT_DIR/../pack-meta"
 
     # Import base pack with packwiz
     echo "Importing base pack..."
     packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
+    echo "Import of base pack complete!"
 
     # Remove excluded mods
     echo "Removing mods from base pack specified in basepack_mods.exclude..."
@@ -81,6 +84,7 @@ fetch_base_pack() {
             packwiz remove "$mod"
         fi
     done
+    echo "Removal of mods from base pack complete!"
 
     popd > /dev/null
 }
@@ -137,15 +141,17 @@ for dir in "${additional_pack_dirs[@]}"; do
     IFS=$'\n' read -d '' -a modpack_additional_dir_files <<< "$modpack_dir_files_list"
     modpack_files+=("${modpack_additional_dir_files[@]}")
 done
+echo "Enumeration complete!"
 
 cd "$SCRIPT_DIR/../pack-meta"
+
+echo "Removing files and folders that are no longer included in the pack..."
 
 # Get names of modpack directories in pack-meta folder, excluding the packwiz managed mods folder
 pack_meta_dir_list="$(find . -maxdepth 1 ! -path . ! -path ./mods -type d | sed 's|^\./||')"
 IFS=$'\n' read -d '' -a pack_meta_dirs <<< "$pack_meta_dir_list"
 
 # Remove files and directories that are no longer in base pack or repo root
-echo "Removing files and folders that are no longer included in the pack..."
 for dir in "${pack_meta_dirs[@]}"; do
     if [[ ! " ${modpack_dirs[@]} " =~ " ${dir} " ]]; then
         rm -rf "$dir"
@@ -161,6 +167,8 @@ for dir in "${pack_meta_dirs[@]}"; do
         done
     fi
 done
+
+echo "Removal of old files complete!"
 
 cd "$SCRIPT_DIR/.."
 
@@ -186,7 +194,7 @@ for dir_to_merge in "${additional_pack_dirs[@]}"; do
     echo "Adding and normalizing files from $dir_to_merge..."
     find "./$dir_to_merge" -type f -exec dos2unix "{}" \;
     cp -R "./$dir_to_merge" ./pack-meta/
-    echo "Successfully added files from $dir_to_merge!"
+    echo "Successfully added files from $dir_to_merge to the pack!"
 done
 
 cd "$SCRIPT_DIR/../pack-meta"
