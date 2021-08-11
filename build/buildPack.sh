@@ -70,7 +70,7 @@ fetch_base_pack() {
     cd "$SCRIPT_DIR/../pack-meta"
 
     # Import base pack with packwiz
-    echo "Importing base pack to packwiz..."
+    echo "Importing base pack..."
     packwiz curseforge import "$SCRIPT_DIR/dl/basePack"
 
     # Remove excluded mods
@@ -118,7 +118,7 @@ if [ ! -d "$SCRIPT_DIR/dl/basePack" ] || [ "$1" == "-u" ] || [ "$1" == "--update
 fi
 
 # Get list of folders and files that need to be in the modpack
-echo "Enumerating additional files to add to modpack..."
+echo "Enumerating files to add to modpack..."
 cd "$SCRIPT_DIR/dl/basePack"
 modpack_files=()
 modpack_dir_list="$(find . -maxdepth 1 ! -path . -type d | sed 's|^\./||')"
@@ -145,16 +145,18 @@ pack_meta_dir_list="$(find . -maxdepth 1 ! -path . ! -path ./mods -type d | sed 
 IFS=$'\n' read -d '' -a pack_meta_dirs <<< "$pack_meta_dir_list"
 
 # Remove files and directories that are no longer in base pack or repo root
+echo "Removing files and folders that are no longer included in the pack..."
 for dir in "${pack_meta_dirs[@]}"; do
     if [[ ! " ${modpack_dirs[@]} " =~ " ${dir} " ]]; then
         rm -rf "$dir"
+        echo "Removed folder: $dir"
     else
         meta_files_list="$(find "$dir" -type f)"
         IFS=$'\n' read -d '' -a meta_files <<< "$meta_files_list"
         for file in "${meta_files[@]}"; do
             if [[ ! " ${modpack_files[@]} " =~ " $file " ]]; then
-                echo "Removing $file"
                 rm "$file"
+                echo "Removed file: $file"
             fi
         done
     fi
@@ -164,11 +166,13 @@ cd "$SCRIPT_DIR/.."
 
 # Normalize file line endings in this repo to lf
 # Copy normalized files to modpack
+echo "Adding and normalizing files to the pack..."
 for dir_to_merge in "${additional_pack_dirs[@]}"; do
     # Check to make sure files do not exist before copying
     files_to_copy_list="$(find "$dir_to_merge" -type f)"
     IFS=$'\n' read -d '' -a files_to_copy <<< "$files_to_copy_list"
     for file in "${files_to_copy[@]}"; do
+        echo "Checking for conflicts for $file..."
         if [ -f "$SCRIPT_DIR/dl/basePack/$file" ]; then
             >&2 echo "Error: Conflicting files. $file already exists in the base modpack."
             >&2 echo "If you need to modify this file, modify it in the base pack and rebuild with the -u flag"
@@ -176,10 +180,13 @@ for dir_to_merge in "${additional_pack_dirs[@]}"; do
             >&2 echo "addressing this error."
             exit 1
         fi
+        echo "No conflicts found for $file!"
     done
 
+    echo "Adding and normalizing files from $dir_to_merge..."
     find "./$dir_to_merge" -type f -exec dos2unix "{}" \;
     cp -R "./$dir_to_merge" ./pack-meta/
+    echo "Successfully added files from $dir_to_merge!"
 done
 
 cd "$SCRIPT_DIR/../pack-meta"
@@ -187,6 +194,7 @@ cd "$SCRIPT_DIR/../pack-meta"
 mod_install_err="false"
 
 # Add mods from mod imports file
+echo "Adding mods from mods.include..."
 IFS=$'\n' read -d '' -a mod_imports < "$SCRIPT_DIR/../mods.include"
 for mod in "${mod_imports[@]}"; do
     if [ ! -z "$mod" ] && [[ ! "$mod" =~ $COMMENT_REGEX ]]; then
@@ -199,8 +207,16 @@ for mod in "${mod_imports[@]}"; do
     fi
 done
 
+if [ "$mod_install_err" == "true" ]; then
+    echo "Errors occurred when adding mods from mods.include. Not all mods were successfully added."
+else
+    echo "Successfully added all mods from mods.include!"
+fi
+
 # Refresh pack index to add new files
+echo "Update/rebuild modpack metadata..."
 packwiz refresh
+echo "Pack metadata refresh complete!"
 
 if [ "$mod_install_err" == "true" ]; then
     >&2 echo $'\nWARN: Unable to install all mods from mods.include file. Check the above output for details.'
