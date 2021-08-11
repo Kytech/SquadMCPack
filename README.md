@@ -36,9 +36,10 @@ contents of the root of the repo into the minecraft instance folder of the resul
 
 Options:
   -h, --help              Display this help message
-  -u, --update-basepack   Pull in the latest version of the base modpack and refresh the base
-                          pack import with the latest .exclude file contents. This flag should be
-                          specified whenever any .exclude file is updated or when removing mods.
+  -u, --update-basepack   Pull in the latest version of the base modpack and refresh the pack
+                          with the latest mod include/exclude file contents. This flag should be
+                          specified whenever any .exclude file is updated or when removing mods
+                          from the mods.include file.
 ```
 
 To build the pack from a fresh clone of this repo, simply execute the `buildPack.sh` script. The built pack will
