@@ -44,6 +44,9 @@ fetch_base_pack() {
     base_pack_exclude+=("${basepack_exclude_file[@]}")
     for file in "${base_pack_exclude[@]}"; do
         if [ ! -z "$file" ] && [[ ! "$file" =~ $COMMENT_REGEX ]]; then
+            # TODO: Make sure this checks for a preceding /. If so remove it
+            # Don't want to accidentally nuke root!
+            # Throw invalid syntax if a .. is specified anywhere
             rm -rf $file
         fi
     done
@@ -73,9 +76,10 @@ display_usage() {
     >&2 echo ""
     >&2 echo "Options:"
     >&2 echo "  -h, --help              Display this help message"
-    >&2 echo "  -u, --update-basepack   Pull in the latest version of the base modpack and refresh the base"
-    >&2 echo "                          pack import with the latest .exclude file contents. This flag should be"
-    >&2 echo "                          specified whenever any .exclude file is updated or when removing mods."
+    >&2 echo "  -u, --update-basepack   Pull in the latest version of the base modpack and refresh the pack"
+    >&2 echo "                          with the latest mod include/exclude file contents. This flag should be"
+    >&2 echo "                          specified whenever any .exclude file is updated or when removing mods"
+    >&2 echo "                          from the mods.include file."
 }
 
 dependency_check
@@ -125,14 +129,15 @@ IFS=$'\n' read -d '' -a pack_meta_dirs <<< "$pack_meta_dir_list"
 for dir in "${pack_meta_dirs[@]}"; do
     if [[ ! " ${modpack_dirs[@]} " =~ " ${dir} " ]]; then
         rm -rf "$dir"
+    else
+        meta_files_list="$(find "$dir" -type f)"
+        IFS=$'\n' read -d '' -a meta_files <<< "$meta_files_list"
+        for file in "${meta_files[@]}"; do
+            if [[ ! " ${modpack_files[@]} " =~ " $file " ]]; then
+                rm "$file"
+            fi
+        done
     fi
-    meta_files_list="$(find "$dir" -type f)"
-    IFS=$'\n' read -d '' -a meta_files <<< "$meta_files_list"
-    for file in "${meta_files[@]}"; do
-        if [[ ! " ${modpack_files[@]} " =~ " $file " ]]; then
-            rm "$file"
-        fi
-    done
 done
 
 cd "$SCRIPT_DIR/.."
