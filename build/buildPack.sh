@@ -226,12 +226,23 @@ echo "Update/rebuild modpack metadata..."
 packwiz refresh
 echo "Pack metadata refresh complete!"
 
-if [ "$mod_install_err" == "true" ]; then
-    >&2 echo $'\nWARN: Unable to install all mods from mods.include file. Check the above output for details.'
-fi
-
-# TODO: Generate curseforge export in build folder
+# Build curseforge pack
+echo "Building curseforge formatted modpack..."
+if [ ! -d "$SCRIPT_DIR/out" ]; then mkdir "$SCRIPT_DIR/out"; fi
+packwiz curseforge export
+mv CreateTogether.zip "$SCRIPT_DIR/out/SquadMCPack-Client-Curse.zip"
+echo "Finished building curseforge modpack!"
 
 # TODO: Generate MultiMC export in build folder
 
-# TODO: Print success message and display note to commit any changes made by this script
+# Run details message
+if [ "$mod_install_err" == "true" ]; then
+    >&2 echo $'\nWARN: Unable to install all mods from mods.include file. Check the above output for details.\n'
+    echo "The modpack build has completed with errors. Not all specified mods were included in the pack."
+else
+    echo $'\nThe modpack build has completed successfully!\n'
+fi
+
+echo "If any changes to this pack are intended to be commited to the modpack repository to be made permanent,"
+echo "please ensure all modified files are committed. This is required as this script has made modifications"
+echo "to files that must be committed to the repository to ensure proper modpack builds on other machines."
