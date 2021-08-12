@@ -227,10 +227,11 @@ packwiz refresh
 echo "Pack metadata refresh complete!"
 
 # Build curseforge pack
+rm "$SCRIPT_DIR/out/*"
 echo "Building curseforge formatted modpack..."
 if [ ! -d "$SCRIPT_DIR/out" ]; then mkdir "$SCRIPT_DIR/out"; fi
 packwiz curseforge export
-mv CreateTogether.zip "$SCRIPT_DIR/out/SquadMCPack-Client-Curse.zip"
+mv CreateTogether.zip "$SCRIPT_DIR/out/SquadMCPack-client-curse.zip"
 echo "Finished building curseforge modpack!"
 
 # TODO: Generate MultiMC export in build folder
