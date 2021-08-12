@@ -1,4 +1,4 @@
-# Packwiz Pack-meta
+# SquadMCPack Packwiz Pack-meta
 
 If you are seeing this page after entering the packwiz url for this pack in your web browser, you were probably trying
 to access the [project repository](https://github.com/Kytech/SquadMCPack) page or pull down this pack using the
