@@ -239,8 +239,10 @@ echo "Finished building curseforge modpack!"
 if [ "$mod_install_err" == "true" ]; then
     >&2 echo $'\nWARN: Unable to install all mods from mods.include file. Check the above output for details.\n'
     echo "The modpack build has completed with errors. Not all specified mods were included in the pack."
+    echo "The build result of this run can be found in $SCRIPT_DIR/out"$'\n'
 else
-    echo $'\nThe modpack build has completed successfully!\n'
+    echo $'\nThe modpack build has completed successfully!'
+    echo "The built modpacks can be found in $SCRIPT_DIR/out"$'\n'
 fi
 
 echo "If any changes to this pack are intended to be commited to the modpack repository to be made permanent,"
