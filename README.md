@@ -78,3 +78,15 @@ buildPack.sh -u
 This will pull in the latest changes from the base pack and apply any new base pack exclusions (detailed below).
 
 To exclude files and mods from the base pack, edit the `basepack_mods.exclude` and `basepack.exclude` files, using the format detailed in the comments of those files. The `basepack_mods.exclude` file defines mods from the base pack to remove, while the `basepack.exclude` file defines files from the base modpack to remove (files that would be placed in the root of the modpack instance). When rebuilding the pack after modifying one of these files, be sure to include the `-u` flag when running the build script as described above.
+
+## Publishing Pack Updates
+
+This pack supports the [packwiz installer bootstrap](https://github.com/comp500/packwiz-installer-bootstrap) for
+auto-updates for client and server pack instances. The MultiMC build of this pack has packwiz auto-updating
+pre-configured. The Packwiz auto-update/install URL of this pack is: https://kytech.github.io/SquadMCPack/
+
+Publishing pack updates consists of the following four steps:
+1. Rebuild the pack by running the `buildPack.sh` script, found in the `build` folder of this repository.
+2. Commit any changes made by the build script.
+3. Execute the `publishPackwizUpdate.sh` script, found in the `build` folder of this repository, to make the update available for modpack instances that support the packwiz auto-update/install system.
+4. Upload the packaged modpacks produced by the build script, located in `build/out`, to this project's GitHub releases.
