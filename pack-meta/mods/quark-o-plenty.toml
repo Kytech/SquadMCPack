@@ -1,0 +1,14 @@
+name = "Quark O' Plenty"
+filename = "QuarkOPlenty-1.16.5-1.2.1.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3237/238/QuarkOPlenty-1.16.5-1.2.1.jar"
+hash-format = "murmur2"
+hash = "1130318118"
+
+[update]
+[update.curseforge]
+file-id = 3237238
+project-id = 436223
+release-channel = "beta"

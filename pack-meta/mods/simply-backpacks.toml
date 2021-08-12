@@ -1,0 +1,14 @@
+name = "Simply Backpacks"
+filename = "simplybackpacks-1.16.5-1.5.1-build.4.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3345/102/simplybackpacks-1.16.5-1.5.1-build.4.jar"
+hash-format = "murmur2"
+hash = "2120454307"
+
+[update]
+[update.curseforge]
+file-id = 3345102
+project-id = 311595
+release-channel = "beta"

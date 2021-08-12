@@ -1,0 +1,14 @@
+name = "Colds: Easy Paxel (Lite) (FORGE)"
+filename = "EasyPaxelLITE(Forge1.16.4)vrs1.0.6.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3368/153/EasyPaxelLITE(Forge1.16.4)vrs1.0.6.jar"
+hash-format = "murmur2"
+hash = "703403478"
+
+[update]
+[update.curseforge]
+file-id = 3368153
+project-id = 476520
+release-channel = "beta"

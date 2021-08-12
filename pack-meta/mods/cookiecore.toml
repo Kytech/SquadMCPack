@@ -1,0 +1,14 @@
+name = "CookieCore"
+filename = "cookiecore-1.16.2-3.0.2-9389769.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3158/118/cookiecore-1.16.2-3.0.2-9389769.jar"
+hash-format = "murmur2"
+hash = "2269858638"
+
+[update]
+[update.curseforge]
+file-id = 3158118
+project-id = 222908
+release-channel = "beta"

@@ -1,0 +1,14 @@
+name = "KubeJS Create"
+filename = "kubejs-create-1605.1.2-build.3.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3398/164/kubejs-create-1605.1.2-build.3.jar"
+hash-format = "murmur2"
+hash = "346113281"
+
+[update]
+[update.curseforge]
+file-id = 3398164
+project-id = 429371
+release-channel = "beta"

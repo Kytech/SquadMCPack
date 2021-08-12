@@ -1,0 +1,14 @@
+name = "Variant16x"
+filename = "Variant16x-1.16.5-v0.21.4_beta_pre6.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3355/289/Variant16x-1.16.5-v0.21.4_beta_pre6.jar"
+hash-format = "murmur2"
+hash = "3740011490"
+
+[update]
+[update.curseforge]
+file-id = 3355289
+project-id = 364441
+release-channel = "beta"

@@ -1,0 +1,14 @@
+name = "FastWorkbench"
+filename = "FastWorkbench-1.16.4-4.5.1.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3245/271/FastWorkbench-1.16.4-4.5.1.jar"
+hash-format = "murmur2"
+hash = "1034278883"
+
+[update]
+[update.curseforge]
+file-id = 3245271
+project-id = 288885
+release-channel = "beta"
