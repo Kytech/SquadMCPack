@@ -227,7 +227,7 @@ packwiz refresh
 echo "Pack metadata refresh complete!"
 
 # Build curseforge pack
-rm "$SCRIPT_DIR/out/*"
+rm $SCRIPT_DIR/out/*
 echo "Building curseforge formatted modpack..."
 if [ ! -d "$SCRIPT_DIR/out" ]; then mkdir "$SCRIPT_DIR/out"; fi
 packwiz curseforge export
