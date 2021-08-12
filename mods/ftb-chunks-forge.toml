@@ -1,0 +1,14 @@
+name = "FTB Chunks (Forge)"
+filename = "ftb-chunks-forge-1605.3.1-build.36.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3401/679/ftb-chunks-forge-1605.3.1-build.36.jar"
+hash-format = "murmur2"
+hash = "3225441468"
+
+[update]
+[update.curseforge]
+file-id = 3401679
+project-id = 314906
+release-channel = "beta"

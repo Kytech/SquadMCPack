@@ -1,0 +1,14 @@
+name = "Abnormals Core"
+filename = "abnormals_core-1.16.5-3.1.1.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3233/486/abnormals_core-1.16.5-3.1.1.jar"
+hash-format = "murmur2"
+hash = "2600382125"
+
+[update]
+[update.curseforge]
+file-id = 3233486
+project-id = 382216
+release-channel = "beta"

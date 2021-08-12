@@ -1,0 +1,14 @@
+name = "Variant16x: Biomes O' Plenty"
+filename = "Variant16x-BiomesOPlenty-1.16.5-v0.21.4_beta_pre1.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3347/956/Variant16x-BiomesOPlenty-1.16.5-v0.21.4_beta_pre1.jar"
+hash-format = "murmur2"
+hash = "2122558872"
+
+[update]
+[update.curseforge]
+file-id = 3347956
+project-id = 373906
+release-channel = "beta"

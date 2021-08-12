@@ -1,0 +1,14 @@
+name = "SuperMartijn642's Config Lib"
+filename = "supermartijn642configlib-1.0.8-mc1.16.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3357/667/supermartijn642configlib-1.0.8-mc1.16.jar"
+hash-format = "murmur2"
+hash = "1287778737"
+
+[update]
+[update.curseforge]
+file-id = 3357667
+project-id = 438332
+release-channel = "beta"

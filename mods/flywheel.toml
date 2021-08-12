@@ -1,0 +1,14 @@
+name = "Flywheel"
+filename = "flywheel-1.16-0.1.1.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3389/159/flywheel-1.16-0.1.1.jar"
+hash-format = "murmur2"
+hash = "3876543801"
+
+[update]
+[update.curseforge]
+file-id = 3389159
+project-id = 486392
+release-channel = "beta"

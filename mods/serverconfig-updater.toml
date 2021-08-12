@@ -1,0 +1,14 @@
+name = "ServerConfig Updater"
+filename = "serverconfigupdater-1.3.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3034/936/serverconfigupdater-1.3.jar"
+hash-format = "murmur2"
+hash = "2949524617"
+
+[update]
+[update.curseforge]
+file-id = 3034936
+project-id = 365281
+release-channel = "beta"

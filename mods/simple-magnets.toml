@@ -1,0 +1,14 @@
+name = "Simple Magnets"
+filename = "simplemagnets-1.1.2-mc1.16.5.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3239/732/simplemagnets-1.1.2-mc1.16.5.jar"
+hash-format = "murmur2"
+hash = "1724380240"
+
+[update]
+[update.curseforge]
+file-id = 3239732
+project-id = 394140
+release-channel = "beta"

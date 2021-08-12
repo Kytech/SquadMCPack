@@ -1,0 +1,14 @@
+name = "Inventory Tweaks Renewed"
+filename = "invtweaks-1.16.4-1.0.1.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3102/237/invtweaks-1.16.4-1.0.1.jar"
+hash-format = "murmur2"
+hash = "4010039030"
+
+[update]
+[update.curseforge]
+file-id = 3102237
+project-id = 383070
+release-channel = "beta"

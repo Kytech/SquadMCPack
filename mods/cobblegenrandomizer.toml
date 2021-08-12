@@ -1,0 +1,14 @@
+name = "CobbleGenRandomizer"
+filename = "cobblegenrandomizer-1.16-5.1.2.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3147/20/cobblegenrandomizer-1.16-5.1.2.jar"
+hash-format = "murmur2"
+hash = "3842960783"
+
+[update]
+[update.curseforge]
+file-id = 3147020
+project-id = 402256
+release-channel = "beta"

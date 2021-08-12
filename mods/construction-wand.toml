@@ -1,0 +1,14 @@
+name = "Construction Wand"
+filename = "constructionwand-1.16.5-2.2.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3285/196/constructionwand-1.16.5-2.2.jar"
+hash-format = "murmur2"
+hash = "476710429"
+
+[update]
+[update.curseforge]
+file-id = 3285196
+project-id = 399558
+release-channel = "beta"

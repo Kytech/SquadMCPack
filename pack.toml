@@ -1,0 +1,10 @@
+name = "CreateTogether"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "785014b8f1a078a9d805b26652c4732058ce958eb87c3f3694980fbfae2c5e2d"
+
+[versions]
+forge = "36.2.0"
+minecraft = "1.16.5"
