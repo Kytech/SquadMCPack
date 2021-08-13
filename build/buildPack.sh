@@ -249,6 +249,7 @@ echo "Pack metadata refresh complete!"
 
 # Clean build output directory
 echo "Cleaning build output directory..."
+if [ ! -d "$SCRIPT_DIR/out" ]; then mkdir "$SCRIPT_DIR/out"; fi
 cd "$SCRIPT_DIR/out"
 rm *
 echo "Build output directory successfully cleaned!"
@@ -256,7 +257,6 @@ echo "Build output directory successfully cleaned!"
 # Build curseforge pack
 cd "$SCRIPT_DIR/../pack-meta"
 echo "Building curseforge formatted modpack..."
-if [ ! -d "$SCRIPT_DIR/out" ]; then mkdir "$SCRIPT_DIR/out"; fi
 packwiz curseforge export
 mv CreateTogether.zip "$SCRIPT_DIR/out/SquadMCPack-curse-client.zip"
 echo "Finished building curseforge modpack!"
