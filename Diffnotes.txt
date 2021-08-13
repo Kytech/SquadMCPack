@@ -1,5 +1,0 @@
-The Patch files compare existing files in the modpack only. Need to check and see what files are uniquely new
-and added by Shawn. Manually add those in.
-
-Will need to manually compare mod list. Might be easiest to do by running instanceSync first, then diff the mod
-folders, otherwise, may just have to do it manually.
