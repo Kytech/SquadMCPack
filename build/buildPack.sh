@@ -20,13 +20,13 @@ dependency_check() {
         exit 1
     fi
 
-    if ! which curl > /dev/null; then
-        >&2 echo "Error: curl not found."
-        >&2 echo "Curl can be installed via a package mamager or downloaded from https://curl.se/"
-        >&2 echo "On Windows, curl is shipped with the OS by default since Windows 10 version 1803"
-        >&2 echo "(build 17063 or newer). Older Windows versions should download/install curl manually."
-        exit 1
-    fi
+    # if ! which curl > /dev/null; then
+    #     >&2 echo "Error: curl not found."
+    #     >&2 echo "Curl can be installed via a package mamager or downloaded from https://curl.se/"
+    #     >&2 echo "On Windows, curl is shipped with the OS by default since Windows 10 version 1803"
+    #     >&2 echo "(build 17063 or newer). Older Windows versions should download/install curl manually."
+    #     exit 1
+    # fi
 
     if [[ "$OSTYPE" == "msys" ]]; then
         if ! which pwsh > /dev/null; then
@@ -262,6 +262,7 @@ mv CreateTogether.zip "$SCRIPT_DIR/out/SquadMCPack-curse-client.zip"
 echo "Finished building curseforge modpack!"
 
 # Build MultiMC Pack
+# TODO: May be good to make the installer jar get pulled via curl instead of storing in this repo
 echo "Building MultiMC formatted modpack..."
 cp -R "$SCRIPT_DIR/../multimc/" "$SCRIPT_DIR/out/"
 cd "$SCRIPT_DIR/out/multimc/.minecraft"
