@@ -10,8 +10,16 @@ The [fork](https://github.com/Kytech/CreateTogether) of the CreateTogether modpa
 
 ## Downlaoding
 
-TODO: Fill out this section
+There are two different builds of this pack: one in the curseforge modpack format and the other in the MultiMC format.
 
+The MultiMC format is the recommended format to use as it includes an auto-update system that will ensure you are always on the latest version of the modpack.
+
+Both modpack builds can be downloaded from the [releases page](https://github.com/Kytech/SquadMCPack/releases).
+As an alternative to downloading the packs, you can copy the download link for the specific build you want and provide that URL to your launcher if it supprots imports via a URL.
+
+The automatic updating feature of the MultiMC format is provided by [packwiz](https://github.com/comp500/packwiz). You can also follow the directions [on this page](https://github.com/comp500/packwiz#packwiz-installer-for-pack-installation) to manually setup this pack in your preferred launcher if it doesn't support one of the two formats that are already built. When following the directions, the URL that should be passed to the tool is https://kytech.github.io/SquadMCPack/pack.toml Additionally, the packwiz tool can be used as a simple downloader tool/script that is suitable for automation and scripting the downloading of this modpack.
+
+For server installs, it is recommended to use the packwiz tool.
 ## Building and Modifying the Pack
 
 Building of this pack is handled via a series of configuration files and a build script. This script takes the base pack, applies modifications, and exports a new modpack with the configured changes.
@@ -83,10 +91,14 @@ To exclude files and mods from the base pack, edit the `basepack_mods.exclude` a
 
 This pack supports the [packwiz installer bootstrap](https://github.com/comp500/packwiz-installer-bootstrap) for
 auto-updates for client and server pack instances. The MultiMC build of this pack has packwiz auto-updating
-pre-configured. The Packwiz auto-update/install server of this pack is: https://kytech.github.io/SquadMCPack/
+pre-configured. To publish pack updates to be available for auto-updating via the packwiz tool, a few extra steps are needed.
 
 Publishing pack updates consists of the following four steps:
 1. Rebuild the pack by running the `buildPack.sh` script, found in the `build` folder of this repository.
 2. Commit any changes made by the build script.
 3. Execute the `publishPackwizUpdate.sh` script, found in the `build` folder of this repository, to make the update available for modpack instances that support the packwiz auto-update/install system.
 4. Upload the packaged modpacks produced by the build script, located in `build/out`, to this project's GitHub releases.
+
+The Packwiz auto-update/install server of this pack is: https://kytech.github.io/SquadMCPack/. You can check which files are being provided to the packwiz updater by navigating to this page with the path of the file, relative to `pack-meta` appended on to it. This URL mirrors the root of the pack-meta directory, so https://kytech.github.io/SquadMCPack/index.toml maps to the last published version of the file `pack-meta/index.toml` in this repository.
+
+*Please note that it may take anywhere from 5 to 20 minutes for published updates to reflect on the pack update server*
