@@ -83,7 +83,7 @@ To exclude files and mods from the base pack, edit the `basepack_mods.exclude` a
 
 This pack supports the [packwiz installer bootstrap](https://github.com/comp500/packwiz-installer-bootstrap) for
 auto-updates for client and server pack instances. The MultiMC build of this pack has packwiz auto-updating
-pre-configured. The Packwiz auto-update/install URL of this pack is: https://kytech.github.io/SquadMCPack/
+pre-configured. The Packwiz auto-update/install server of this pack is: https://kytech.github.io/SquadMCPack/
 
 Publishing pack updates consists of the following four steps:
 1. Rebuild the pack by running the `buildPack.sh` script, found in the `build` folder of this repository.
