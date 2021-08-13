@@ -24,7 +24,7 @@ For server installs, it is recommended to use the packwiz tool.
 
 Building of this pack is handled via a series of configuration files and a build script. This script takes the base pack, applies modifications, and exports a new modpack with the configured changes.
 
-The build script is located in `build/`. It has a dependency of packwiz, dos2unix, and curl. These utilities need to be available in your PATH environment variable. If you run the script without the dependencies installed, you will be prompted with information as to where to obtain these tools based on your OS.
+The build script is located in `build/`. under the name of `buildPack.sh` It has a dependency of packwiz and dos2unix on all platforms as well as powershell on Windows only and the zip command for all other OSes. These utilities need to be available in your PATH environment variable. If you run the script without the dependencies installed, you will be prompted with information as to where to obtain these tools based on your OS.
 
 This script should have the needed UNIX permissions set to be executable. For Windows, this script can be executed
 through Git Bash.
