@@ -4,6 +4,8 @@ SCRIPT_DIR="$(cd $(dirname "${BASH_SOURCE[0]}"); pwd)"
 COMMENT_REGEX='^#'
 ABSOLUTE_PATH_REGEX="^[\"']?/"
 
+powershell_executable=""
+
 dependency_check() {
     if ! which dos2unix > /dev/null; then
         >&2 echo "Error: dos2unix not found."
@@ -24,6 +26,25 @@ dependency_check() {
         >&2 echo "On Windows, curl is shipped with the OS by default since Windows 10 version 1803"
         >&2 echo "(build 17063 or newer). Older Windows versions should download/install curl manually."
         exit 1
+    fi
+
+    if [[ "$OSTYPE" == "msys" ]]; then
+        if ! which pwsh > /dev/null; then
+            if ! which powershell > /dev/null; then
+                >&2 echo "Error: powershell not found."
+                >&2 echo "Please install Powershell to run this script on Windows."
+                exit 1
+            else
+                powershell_executable="powershell"
+            fi
+        else
+            powershell_executable="pwsh"
+        fi
+    else
+        if ! which zip > /dev/null; then
+            >&2 echo "Error: zip not found."
+            >&2 echo "Please install the zip command to run this script."
+        fi
     fi
 }
 
@@ -133,7 +154,7 @@ for dir in "${modpack_dirs[@]}"; do
     modpack_files+=("${modpack_dir_files[@]}")
 done
 cd "$SCRIPT_DIR/.."
-additional_pack_dirs_list="$(find . -maxdepth 1 ! -path . ! -path ./.git ! -path ./build ! -path ./pack-meta  -type d | sed 's|^\./||')"
+additional_pack_dirs_list="$(find . -maxdepth 1 ! -path . ! -path ./.git ! -path ./build ! -path ./multimc ! -path ./pack-meta  -type d | sed 's|^\./||')"
 IFS=$'\n' read -d '' -a additional_pack_dirs <<< "$additional_pack_dirs_list"
 modpack_dirs+=("${additional_pack_dirs[@]}")
 for dir in "${additional_pack_dirs[@]}"; do
@@ -226,15 +247,34 @@ echo "Update/rebuild modpack metadata..."
 packwiz refresh
 echo "Pack metadata refresh complete!"
 
+# Clean build output directory
+echo "Cleaning build output directory..."
+cd "$SCRIPT_DIR/out"
+rm *
+echo "Build output directory successfully cleaned!"
+
 # Build curseforge pack
-rm $SCRIPT_DIR/out/*
+cd "$SCRIPT_DIR/../pack-meta"
 echo "Building curseforge formatted modpack..."
 if [ ! -d "$SCRIPT_DIR/out" ]; then mkdir "$SCRIPT_DIR/out"; fi
 packwiz curseforge export
-mv CreateTogether.zip "$SCRIPT_DIR/out/SquadMCPack-client-curse.zip"
+mv CreateTogether.zip "$SCRIPT_DIR/out/SquadMCPack-curse-client.zip"
 echo "Finished building curseforge modpack!"
 
-# TODO: Generate MultiMC export in build folder
+# Build MultiMC Pack
+echo "Building MultiMC formatted modpack..."
+cp -R "$SCRIPT_DIR/../multimc/" "$SCRIPT_DIR/out/"
+cd "$SCRIPT_DIR/out/multimc/.minecraft"
+mkdir coremods mods resourcepacks saves screenshots texturepacks
+cd "$SCRIPT_DIR/out"
+mv multimc/ "SquadMC Create Together/"
+if [[ "$OSTYPE" == "msys" ]]; then
+    $powershell_executable -Command "Compress-Archive 'SquadMC Create Together' SquadMCPack-MultiMC.zip"
+else
+    zip -r SquadMCPack-MultiMC.zip 'SquadMC Create Together'/
+fi
+rm -rf "$SCRIPT_DIR/out/SquadMC Create Together"
+echo "Finished building MultiMC formatted modpack!"
 
 # Run details message
 if [ "$mod_install_err" == "true" ]; then
