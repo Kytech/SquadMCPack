@@ -15,7 +15,6 @@ There are two different builds of this pack: one in the curseforge modpack forma
 The MultiMC format is the recommended format to use as it includes an auto-update system that will ensure you are always on the latest version of the modpack.
 
 Both modpack builds can be downloaded from the [releases page](https://github.com/Kytech/SquadMCPack/releases).
-As an alternative to downloading the packs, you can copy the download link for the specific build you want and provide that URL to your launcher if it supprots imports via a URL. The import URLs that you can provide to a launcher are typically included on the release page as well.
 
 The automatic updating feature of the MultiMC format is provided by [packwiz](https://github.com/comp500/packwiz). You can also follow the directions [on this page](https://github.com/comp500/packwiz#packwiz-installer-for-pack-installation) to manually setup this pack in your preferred launcher if it doesn't support one of the two formats that are already built. When following the directions, the URL that should be passed to the tool is https://kytech.github.io/SquadMCPack/pack.toml Additionally, the packwiz tool can be used as a simple downloader tool/script that is suitable for automation and scripting the downloading of this modpack.
 
