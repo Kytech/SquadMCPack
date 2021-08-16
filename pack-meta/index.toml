@@ -69,6 +69,10 @@ file = "config/defaultoptions/options.txt"
 hash = "5c7b2b1b328fb13c966737869f8daf501a1ca29e97a89cb079a5fcd673fbe644"
 
 [[files]]
+file = "config/dsurround-client.toml"
+hash = "e644c1efe3f6867696bd21f030520750c6537cf364aa0898ff7cee94488d0895"
+
+[[files]]
 file = "config/dynview-common.toml"
 hash = "38a6a4e44d2caa0b9339936215cc88cedbd1ef0a4e7dca5a2ed64bc30a166d96"
 
@@ -79,6 +83,10 @@ hash = "c428e7b6c48e51b48c3b78057de70415ce28d08b601e04e004baf209c4c3796b"
 [[files]]
 file = "config/entity_culling-client.toml"
 hash = "6cfa60d2885dd7385f6cadb8e2475d6db7c896d908281f976e7a9ff240ec747a"
+
+[[files]]
+file = "config/environs-client.toml"
+hash = "e525d277adf888e9ee6f808eb5ef94dc33e7b01beaa071acdb6558fddfeae00b"
 
 [[files]]
 file = "config/exnihilosequentia-common.toml"
@@ -157,6 +165,10 @@ file = "config/magicfeather-common.toml"
 hash = "3533276d7ee8087221bc4ec04163647cc8ae5d27f67b65f9fdf4d398f96a6f6d"
 
 [[files]]
+file = "config/mobeffects-client.toml"
+hash = "7d260707063bed138c93947d9ae1ed0b224264537cda48761526e61cc50017f8"
+
+[[files]]
 file = "config/moreoverlays.toml"
 hash = "e782b52c880c2bf93892df4b9dcefc833becb595ef6ed9a67099a6e47f24b5a9"
 
@@ -203,6 +215,10 @@ hash = "87b196ab7041a66a5cf6a9e8f618c5942c294e1649928e65aac00b7ab15ddd5b"
 [[files]]
 file = "config/simplybackpacks-common.toml"
 hash = "85a2bbb48a2088f0ea5b89f36a0f344b72399e65d13da74106fac7b2a2e9d7a0"
+
+[[files]]
+file = "config/sndctrl-client.toml"
+hash = "b4598aa18da615e61f992c78f13a3f7347d20ef970b27e4a6b5e55492fef67dc"
 
 [[files]]
 file = "config/storagedrawers-common.toml"
@@ -674,6 +690,11 @@ metafile = true
 [[files]]
 file = "mods/simply-backpacks.toml"
 hash = "97ffc180d2c988f4f5ae61028334efaa76a0f3bca0b72c7690a687e55c45230b"
+metafile = true
+
+[[files]]
+file = "mods/spiders-2-0.toml"
+hash = "ddf4db7193acd423ee46a7972bf83919e22ee8f55b0a9ef85383309ef38d27a6"
 metafile = true
 
 [[files]]

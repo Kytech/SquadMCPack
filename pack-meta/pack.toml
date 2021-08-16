@@ -3,7 +3,7 @@ name = "CreateTogether"
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "785014b8f1a078a9d805b26652c4732058ce958eb87c3f3694980fbfae2c5e2d"
+hash = "d4667801e7100a7183d1f933b16b143e64fc03b1e117d30ec59ed7737de58036"
 
 [versions]
 forge = "36.2.0"

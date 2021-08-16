@@ -1,0 +1,14 @@
+name = "Spiders 2.0"
+filename = "spiders-2.0-1.16.4-1.0.4.jar"
+side = "both"
+
+[download]
+url = "https://edge.forgecdn.net/files/3103/152/spiders-2.0-1.16.4-1.0.4.jar"
+hash-format = "murmur2"
+hash = "123550377"
+
+[update]
+[update.curseforge]
+file-id = 3103152
+project-id = 410497
+release-channel = "beta"
