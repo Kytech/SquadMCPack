@@ -3,8 +3,8 @@ name = "CreateTogether"
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "d4667801e7100a7183d1f933b16b143e64fc03b1e117d30ec59ed7737de58036"
+hash = "7b9ce681aed5bb57c9d2e17c2d8d47e193d24d8fe5735b919d49c7109103fae5"
 
 [versions]
-forge = "36.2.0"
+forge = "36.2.2"
 minecraft = "1.16.5"
