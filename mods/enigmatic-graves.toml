@@ -1,14 +1,14 @@
 name = "Enigmatic Graves"
-filename = "EnigmaticGraves-1.5.1.jar"
+filename = "EnigmaticGraves-1.6.1.jar"
 side = "both"
 
 [download]
-url = "https://edge.forgecdn.net/files/3402/632/EnigmaticGraves-1.5.1.jar"
+url = "https://edge.forgecdn.net/files/3421/782/EnigmaticGraves-1.6.1.jar"
 hash-format = "murmur2"
-hash = "2066041495"
+hash = "2766946823"
 
 [update]
 [update.curseforge]
-file-id = 3402632
+file-id = 3421782
 project-id = 496030
 release-channel = "beta"
